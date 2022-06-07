@@ -1,0 +1,91 @@
+{{extend 'layout_frontend.html'}}
+
+<style>
+  .section {
+  padding: 40px 0;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myUL {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd; /* Add a border to all links */
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  font-size: 18px; /* Increase the font-size */
+  color: black; /* Add a black text color */
+  display: block; /* Make it into a block element to fill the whole list */
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #e12454; /* Add a hover effect to all links, except for headers */
+  color: white;
+}
+</style>
+
+<div class="container">
+<div class="row justify-content-center">
+  <div class="col-lg-7 text-center">
+    <div class="section-title">
+    <h2>Listado de entidades</h2>
+    <div class="divider mx-auto my-4"></div>
+    <!-- <p>Lets know moreel necessitatibus dolor asperiores illum possimus sint voluptates incidunt molestias nostrum laudantium. Maiores porro cumque quaerat.</p> -->
+    </div>
+  </div>
+  </div>		
+
+</div>
+  
+<br>
+
+</div>
+
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Nombre de la entidad...">
+
+<ul id="myUL">
+  {{for contacto in contactos:}}
+    <li title="Click para ver más información." ><a href="{{=URL('default', 'detalles_contacto', args=contacto.id)}}">{{=contacto.empresa}}</a></li>
+  {{pass}}
+</ul> 
+
+<script>
+
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+</script>

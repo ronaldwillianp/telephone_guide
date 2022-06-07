@@ -1,0 +1,41 @@
+{{extend 'layout_frontend.html'}}
+
+<link rel="stylesheet" type="text/css" href="{{=URL('static','frontend/themes/novena/plugins/datatables/datatables.min.css')}}"/>
+ 
+<script type="text/javascript" src="{{=URL('static','frontend/themes/novena/plugins/datatables/datatables.min.js')}}"></script>
+
+<style>
+#myTable_wrapper {
+ width: 100%;
+}
+</style>
+
+<table class="table" id="myTable">
+    <thead>
+      <tr>
+        <th scope="col">Empresa</th>
+        <th scope="col">Contrato</th>
+        <th scope="col">Director</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+        {{for i in contactos:}}
+      <tr>
+        <th scope="row">{{=i.empresa}}</th>
+        <td>{{=i.contrato}}</td>
+        <td>{{=i.nombre}} {{=i.apellidos}}</td>
+        <td>
+            <a href="appoinment.html" class="btn btn-main btn-round-full">Editar</a>
+            <a href="appoinment.html" class="btn btn-main btn-round-full">Eliminar</a>
+        </td>
+      </tr>
+      {{pass}}
+    </tbody>
+  </table>
+
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+</script>
